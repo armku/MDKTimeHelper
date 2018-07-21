@@ -8,9 +8,20 @@ namespace MDKTimeHelper
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello {0}\n",DateTime.Now);
+            var dthelper = new DateTimeHelper();
+            Console.WriteLine("Hello {0}\n", dthelper.GetDateTimeStr());
+        }
+    }
+    class DateTimeHelper
+    {
+        String strDateTime = "";
+        public String GetDateTimeStr()
+        {
+            strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            return strDateTime;
         }
     }
 }
