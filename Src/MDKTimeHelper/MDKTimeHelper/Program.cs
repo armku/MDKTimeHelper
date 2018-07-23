@@ -16,7 +16,6 @@ namespace MDKTimeHelper
         static void Main(string[] args)
         {
             var dthelper = new DateTimeHelper();
-            Console.WriteLine("Hello {0}\n", dthelper.GetDateTimeStr());
             if (args.Count() > 0)
             {
                 for (int i = 0; i < 10; i++)
