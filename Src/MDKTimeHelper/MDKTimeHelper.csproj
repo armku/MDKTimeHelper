@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="MDKTimeHelper\Extension\StringHelper.cs" />
     <Compile Include="MDKTimeHelper\IO\IOHelper.cs" />
+    <Compile Include="MDKTimeHelper\IO\PathHelper.cs" />
     <Compile Include="MDKTimeHelper\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
