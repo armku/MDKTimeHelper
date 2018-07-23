@@ -77,7 +77,6 @@ namespace MDKTimeHelper
             var ft = "yyyy-MM-dd HH:mm:ss";
             //var sys = axf.GetFullPath();
             if (!File.Exists(filename)) return;
-
             var dt = ft.GetBytes();
             using (var fs = File.Open(filename, FileMode.Open, FileAccess.ReadWrite))
             {
