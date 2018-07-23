@@ -1,0 +1,7 @@
+D:\job\git\MCU\STM32\MDKTimeHelper\Src\MDKTimeHelper\obj\Debug\MDKTimeHelper.csproj.CoreCompileInputs.cache
+D:\job\git\MCU\STM32\MDKTimeHelper\Bin\MDKTimeHelper.exe.config
+D:\job\git\MCU\STM32\MDKTimeHelper\Bin\MDKTimeHelper.exe
+D:\job\git\MCU\STM32\MDKTimeHelper\Bin\MDKTimeHelper.pdb
+D:\job\git\MCU\STM32\MDKTimeHelper\Src\MDKTimeHelper\obj\Debug\MDKTimeHelper.exe
+D:\job\git\MCU\STM32\MDKTimeHelper\Src\MDKTimeHelper\obj\Debug\MDKTimeHelper.pdb
+D:\job\git\MCU\STM32\MDKTimeHelper\Src\MDKTimeHelper\obj\Debug\MDKTimeHelper.csprojResolveAssemblyReference.cache

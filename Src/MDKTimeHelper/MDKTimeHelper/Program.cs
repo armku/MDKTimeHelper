@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MDKTimeHelper.Extension;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,12 +12,12 @@ namespace MDKTimeHelper
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             var dthelper = new DateTimeHelper();
             Console.WriteLine("Hello {0}\n", dthelper.GetDateTimeStr());
-            if(args.Count()>0)
+            if (args.Count() > 0)
             {
                 dthelper.DealAxf(args[0]);
             }
@@ -32,52 +33,72 @@ namespace MDKTimeHelper
         }
         public void DealAxf(string filename)
         {
-            char[] strbufold = "yyyy-MM-dd HH:mm:ss".ToArray();
-            char[] strnew = this.GetDateTimeStr().ToArray();
-            Console.WriteLine(String.Format("len {0} {1}",strbufold.Length,strnew.Length));
-            if(!File.Exists(filename))
+            //char[] strbufold = "yyyy-MM-dd HH:mm:ss".ToArray();
+            //char[] strnew = this.GetDateTimeStr().ToArray();
+            //Console.WriteLine(String.Format("len {0} {1}", strbufold.Length, strnew.Length));
+            //if (!File.Exists(filename))
+            //{
+            //    Console.WriteLine(String.Format("文件{0}不存在", filename));
+            //    return;
+            //}
+            //int pos;
+            //int filelen = 0;
+            //char[] buffer = new char[1024 * 1024 * 10];
+            //using (StreamReader reader = new StreamReader(filename, Encoding.Default))//需要指定编码，否则读到的为乱码
+            //{
+            //    filelen = reader.Read(buffer, 0, buffer.Length);
+            //}
+
+            //for (int jk = 0; jk < 20; jk++)
+            //{
+            //    pos = this.findPos(buffer, strbufold);
+            //    Console.WriteLine(String.Format("位置 {0}", pos));
+            //    if (pos >= 0)
+            //    {
+            //        for (int i = 0; i < strnew.Length; i++)
+            //        {
+            //            buffer[pos + i] = strnew[i];
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("找到{0}处时间并修改", jk);
+            //        break;
+            //    }
+            //}
+            //using (var writer = new StreamWriter(filename, false, Encoding.Default))//需要指定编码，否则读到的为乱码
+            //{
+            //    writer.Write(buffer, 0, filelen);
+            //    writer.Flush();
+            //    writer.Close();
+            //}
+
+            // 修改编译时间
+            var ft = "yyyy-MM-dd HH:mm:ss";
+            //var sys = axf.GetFullPath();
+            if (!File.Exists(filename)) return;
+
+            var dt = ft.GetBytes();
+            using (var fs = File.Open(filename, FileMode.Open, FileAccess.ReadWrite))
             {
-                Console.WriteLine(String.Format("文件{0}不存在",filename));
-                return;
-            }
-            int pos;
-            int filelen = 0;
-            char[] buffer = new char[1024*1024*10];
-            using (StreamReader reader = new StreamReader(filename, Encoding.Default))//需要指定编码，否则读到的为乱码
-            {
-                filelen=reader.Read(buffer, 0, buffer.Length);
-            }
-            
-            for (int jk = 0; jk < 20; jk++)
-            {
-                pos = this.findPos(buffer, strbufold);
-                Console.WriteLine(String.Format("位置 {0}", pos));
-                if (pos >= 0)
+                if (fs.IndexOf(dt) > 0)
                 {
-                    for (int i = 0; i < strnew.Length; i++)
-                    {
-                        buffer[pos + i] = strnew[i];
-                    }
+                    fs.Position -= dt.Length;
+                    var now = DateTime.Now.ToString(ft);
+                    Console.WriteLine("找到编译时间的位置0x{0:X8}，准备写入编译时间{1}", fs.Position, now);
+                    fs.Write(now.GetBytes());
+
+                    return ;
                 }
-                else
-                {
-                    Console.WriteLine("找到{0}处时间并修改", jk);
-                    break;
-                }
-            }
-            using (var writer = new StreamWriter(filename, false, Encoding.Default))//需要指定编码，否则读到的为乱码
-            {
-                writer.Write(buffer, 0, filelen);
-                writer.Flush();
-                writer.Close();
             }
         }
-        public int findPos(char[] buf,char[] bufsub)
+        
+        public int findPos(char[] buf, char[] bufsub)
         {
-            for(int i=0;i<buf.Length-bufsub.Length;i++)
+            for (int i = 0; i < buf.Length - bufsub.Length; i++)
             {
                 int j = 0;
-                for(j=0;j<bufsub.Length;j++)
+                for (j = 0; j < bufsub.Length; j++)
                 {
                     if (buf[i + j] != bufsub[j])
                         break;
@@ -88,7 +109,8 @@ namespace MDKTimeHelper
             //Console.WriteLine("Length {0}--{1}", buf.Length, bufsub.Length);
             return -1;
         }
-        static Int32 Main(String[] args)
+#if false
+        static Int32 Main1(String[] args)
         {
             var axf = GetAxf(args);
             // 修改编译时间
@@ -159,7 +181,7 @@ namespace MDKTimeHelper
 
             return false;
         }
-
+#endif
         static String GetKeil()
         {
             var reg = Registry.LocalMachine.OpenSubKey("Software\\Keil\\Products\\MDK");
@@ -167,7 +189,5 @@ namespace MDKTimeHelper
 
             return reg.GetValue("Path") + "";
         }
-
     }
-
 }
