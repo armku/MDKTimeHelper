@@ -25,12 +25,6 @@ namespace MDKTimeHelper
     }
     class DateTimeHelper
     {
-        String strDateTime = "";
-        public String GetDateTimeStr()
-        {
-            strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            return strDateTime;
-        }
         public void DealAxf(string filename)
         {
             // 修改编译时间
