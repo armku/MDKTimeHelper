@@ -53,16 +53,5 @@ namespace MDKTimeHelper
             }
             return false;
         }
-        /// <summary>
-        /// 获取Keil路径
-        /// </summary>
-        /// <returns></returns>
-        static String GetKeil()
-        {
-            var reg = Registry.LocalMachine.OpenSubKey("Software\\Keil\\Products\\MDK");
-            if (reg == null) return null;
-
-            return reg.GetValue("Path") + "";
-        }
     }
 }
